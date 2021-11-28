@@ -15,6 +15,7 @@
     }
     /* The Modal (background) */
     .modal {
+      display: none; /* Hidden by default. To be toggled*/  
       position: fixed; /* Fixed in place */
       z-index: 1; /* Set to sit on top */
       padding-top: 100px; 
@@ -61,10 +62,12 @@
 </head>
 <body>
     <!-- Buttons to Open The Modal -->
-    <button class="btn">Click Me</button>
+    <button class="btn" value="Are you sure you want to continue?" onClick="confirmationDialog(this.value)">Click Me</button>
+    <!-- <button class = "btn" value="Do you really want to do that?" onClick="confirmationDialog(this.value)">Click Me 2</button> -->
+    <!-- <button class = "btn" value="Does this work as expected?" onClick="confirmationDialog(this.value)">Click Me 3</button> -->
     
     <!-- Text that displays after The Modal Closes-->
-    <p id="screenText">You just clicked "Yes"</p>
+    <p id="screenText"></p>
     
     <!-- The Modal -->
     <div id="myModal" class="modal">
@@ -75,7 +78,7 @@
                 <h2></h2>
             </div>
             <div class="modal-dialog">
-                <p class="dialogMessage">"Are you sure you want to continue?"</p>
+                <p class="dialogMessage"></p>
                 <div class="buttons">
                     <button class="btn" id="yes" value="Yes">Yes</button>
                     <button class="btn" id="cancel" value="Cancel">Cancel</button>
@@ -83,5 +86,46 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // Get the modal
+        var modal = document.getElementById("myModal");
+
+        function confirmationDialog(message) {
+            // Get modal content message element
+            var dialogMessage = document.getElementsByClassName("dialogMessage")[0];
+            // Get the yes button
+            var yes = document.getElementById("yes");
+            // Get the cancel button
+            var cancel = document.getElementById("cancel");
+
+            // Display the modal
+            dialogMessage.innerHTML = message;
+            modal.style.display = "block";
+
+            // When the user clicks on yes, close the modal
+            yes.onclick = function () {
+                modal.style.display = "none";
+                mainPage(this.value);
+            }
+
+            // When the user clicks on cancel, close the modal
+            cancel.onclick = function () {
+                modal.style.display = "none";
+                mainPage(this.value);
+            }
+        }
+
+        function mainPage(result) {
+            // Define text
+            var confirmationText = "You just clicked ";
+
+            // Get the paragraph element
+            var screenText = document.getElementById("screenText");
+
+            // Set the result to the paragraph element
+            screenText.innerHTML = confirmationText + "\"" + result + "\"";
+        }
+    </script>
 </body>
 </html>
